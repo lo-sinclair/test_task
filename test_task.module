@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file
+ * Code for the test_task feature.
+ */
+
+include_once 'test_task.features.inc';
+
+/**
+ * Implements hook_menu()
+ */
+function test_task_menu() {
+	
+  $items['drupal-test-task'] = array(
+    'title' => 'Drupal test task',
+    'page callback' => 'test_task_page',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+ }
+
+
+ /**
+ * Outputs users list
+ */
+function test_task_page() {
+    $header = array('Uid', 'Name', 'Ection');
+    $rows = array();
+
+    $result = db_select('users', 'u')->fields('u', array('uid', 'name'))->execute();
+	foreach ($result as $user) {	  
+	  if($user->uid == 0){continue;}
+	  $rows[] = array(
+	  	$user->uid, 
+	  	$user->name, 
+	  	l('egit', '/user/'.$user->uid.'/edit'),
+	  );
+
+	}
+    return theme('table', array('header' => $header, 'rows' => $rows));
+}

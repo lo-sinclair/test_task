@@ -1,0 +1,12 @@
+name = test_task
+description = Drupal test task!
+core = 7.x
+package = Other
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[user_role][] = administrator
+features[views_view][] = drupal_test_task_view
