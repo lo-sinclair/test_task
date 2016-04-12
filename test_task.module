@@ -28,15 +28,14 @@ function test_task_page() {
     $header = array('Uid', 'Name', 'Ection');
     $rows = array();
 
-    $result = db_select('users', 'u')->fields('u', array('uid', 'name'))->execute();
-	foreach ($result as $user) {	  
-	  if($user->uid == 0){continue;}
+    $result = db_select('users', 'u')->fields('u', array('uid', 'name'))->range(1, 50)->execute();
+   
+	foreach ($result as $user) {	
 	  $rows[] = array(
 	  	$user->uid, 
 	  	$user->name, 
 	  	l('egit', '/user/'.$user->uid.'/edit'),
 	  );
-
 	}
     return theme('table', array('header' => $header, 'rows' => $rows));
 }
